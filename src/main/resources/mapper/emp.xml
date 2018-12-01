@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 先引入对应的扫描文件 -->
+<mapper namespace="com.mapper.EmpMapper">
+	<select id="getEmpInfoWithDeptName" resultMap="getEmpInfoReMap">
+		select * from tbl_emp
+	</select>
+	<resultMap type="com.po.Emp" id="getEmpInfoReMap">
+		<result column="emp_id" property="emp_id" />
+		<result column="emp_name" property="emp_name" />
+		<result column="gender" property="gender" />
+		<result column="eamil" property="eamil" />
+		<result column="dept_id" property="dept_id" />
+	</resultMap>
+	<!-- 用于查询员工的部门信息 -->
+	<select id="getEmpInfo" resultMap="getEmpInfoReMapWithDeptName">
+		select dept_name,emp_id,emp_name,gender,eamil,tbl_emp.dept_id
+		from tbl_emp,tbl_dept
+		where tbl_emp.dept_id=tbl_dept.dept_id
+	</select>
+	<resultMap type="com.po.Emp" id="getEmpInfoReMapWithDeptName">
+		<result column="emp_id" property="emp_id" />
+		<result column="emp_name" property="emp_name" />
+		<result column="gender" property="gender" />
+		<result column="eamil" property="eamil" />
+		<result column="dept_id" property="dept_id" />
+		<result column="dept_name" property="dept_name" />
+	</resultMap>
+
+	<!-- 用于更新数据库 -->
+	<update id="updateEmpById" parameterType="com.po.Emp">
+		UPDATE tbl_emp
+		<trim prefix="set" suffixOverrides=",">
+			<if test="emp_name!=null">emp_name=#{emp_name},</if>
+			<if test="gender!=null">gender=#{gender},</if>
+			<if test="eamil!=null">eamil=#{eamil},</if>
+			<if test="dept_id!=null">dept_id=#{dept_id},</if>
+		</trim>
+		WHERE emp_id=#{emp_id}
+	</update>
+
+
+
+	<insert id="insertEmpByEmp" parameterType="com.po.Emp">
+		insert into tbl_emp
+		(emp_name,gender,eamil,dept_id)
+		values(#{emp_name},#{gender},#{eamil},#{dept_id})
+	</insert>
+
+
+	<!-- 通过员工姓名查询员工信息 -->
+	<select id="checkUserAlreadyUseByUserName"
+		resultMap="getEmpInfoReMap" parameterType="String">
+		select *
+		from tbl_emp
+		where emp_name=#{emp_name}
+	</select>
+
+
+
+	<!-- 通过员工id查询员工信息 -->
+	<select id="gtEmpById" resultMap="getEmpInfoReMapWithDeptName"
+		parameterType="Integer">
+		select dept_name,emp_id,emp_name,gender,eamil,tbl_emp.dept_id
+		from tbl_emp,tbl_dept
+		where tbl_emp.dept_id=tbl_dept.dept_id and emp_id=#{emp_id}
+	</select>
+
+
+	<!-- 删除单个员工信息 -->
+	<delete id="deleteEmpById" parameterType="Integer">
+		delete from tbl_emp where emp_id=#{emp_id}
+	</delete>
+	<!-- 删除批量删除多个员工信息 -->
+	<delete id="deleteEmpMultiple" parameterType="java.util.List">
+		delete from tbl_emp where emp_id in
+		<foreach collection="list" index="index" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+	
+	
+	<!-- 通过员工姓名查找员工信息 -->
+	<select id="getEmpInfoByName" resultMap="getEmpInfoReMapWithDeptName"
+		parameterType="String">
+		select dept_name,emp_id,emp_name,gender,eamil,tbl_emp.dept_id
+		from tbl_emp,tbl_dept
+		where emp_name LIKE CONCAT(CONCAT('%',#{emp_name}),'%') and tbl_emp.dept_id=tbl_dept.dept_id
+	</select>
+	
+	
+	
+	<!-- 通过员工姓名查找员工的成绩信息 -->
+	<select id="getEmpScoreByName"
+		resultMap="getEmpScoreMapWithEmpName" parameterType="String">
+		SELECT
+		tbl_emp.emp_name,tbl_sc.Cno,tbl_course.Cname,tbl_course.Ctime,tbl_sc.Score
+		FROM tbl_emp,tbl_sc,tbl_course
+		WHERE tbl_course.Cno=tbl_sc.Cno AND tbl_emp.emp_id=tbl_sc.emp_id AND tbl_emp.emp_name=#{emp_name}
+	</select>
+	<resultMap type="com.po.Emp" id="getEmpScoreMapWithEmpName">
+		<result column="emp_name" property="emp_name" />
+		<result column="Cno" property="Cno" />
+		<result column="Cname" property="Cname" />
+		<result column="Ctime" property="Ctime" />
+		<result column="Score" property="Score" />
+	</resultMap>
+</mapper>

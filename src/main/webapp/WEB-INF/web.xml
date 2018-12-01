@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
+  <context-param>
+      <!-- 此处是用于配置spring的配置文件 -->
+    <param-name>contextConfigLocation</param-name>
+    <param-value>
+        <!-- 项目启动之后就会立刻加载这两个文件 -->
+		classpath:conf/spring.xml;
+		classpath:conf/spring-mybatis.xml
+		classpath:conf/spring-mvc.xml
+		</param-value>
+  </context-param> 
+  <!-- 3.这个过滤器是用于将字符编码过滤器 -->
+  <filter>
+    <filter-name>SpringEncodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <!-- 此处使用设置字符编码的初始属性 -->
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+     <init-param>
+      <param-name>forceRequestEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceResponseEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>SpringEncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!--4. 使用过滤器来使用reset风格的URI ,目的是将页面发过来的post请求转换为我们指定的put/delete请求-->
+  <filter>
+      <filter-name>HiddenHttpMethodFilter</filter-name>
+     <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+  </filter>
+  <filter-mapping>
+      <filter-name>HiddenHttpMethodFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!-- 用于处理put以及delete请求 -->
+  <filter>
+      <filter-name>HttpPutFormContentFilter</filter-name>
+      <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+  </filter>
+  <filter-mapping>
+      <filter-name>HttpPutFormContentFilter</filter-name>
+      <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <context-param>
+    <param-name>log4jConfiguration</param-name>
+    <param-value>classpath:conf/log4j2.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
+  </listener>
+  <filter>
+    <filter-name>log4jServletFilter</filter-name>
+    <filter-class>org.apache.logging.log4j.web.Log4jServletFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>log4jServletFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
+  <context-param>
+    <param-name>webAppRootKey</param-name>
+    <param-value>ssm.root</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+  </listener>
+  <!-- 配置spring-mvc的前端控制器，拦截所有请求 -->
+  <servlet>
+    <servlet-name>sakila</servlet-name>
+    <servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+	</servlet-class>
+    <init-param> 
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:conf/spring-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>sakila</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+</web-app>

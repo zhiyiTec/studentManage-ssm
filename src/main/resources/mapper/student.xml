@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 先引入对应的扫描文件 -->
+<mapper namespace="com.mapper.StudentMapper">
+	<select id="getStudentBasicInfoByName" resultMap="getStudentInfoReMap" parameterType="String">
+		select * from emp_course_sc_dept
+		where emp_name=#{emp_name}
+	</select>
+	<resultMap type="com.po.Emp" id="getStudentInfoReMap">
+		<result column="emp_id" property="emp_id" />
+		<result column="emp_name" property="emp_name" />
+		<result column="gender" property="gender" />
+		<result column="eamil" property="eamil" />
+		<result column="dept_id" property="dept_id" />
+		<result column="Cname" property="Cname" />
+		<result column="Ctime" property="Ctime" />
+		<result column="dept_name" property="dept_name" />
+		<result column="Cno" property="Cno" />
+		<result column="dept_id" property="dept_id" />
+		<result column="Score" property="Score" />
+	</resultMap>
+	
+	
+	<select id="getAllDeptName" resultMap="getDeptInfo" >
+		select * from tbl_dept
+	</select>
+	<resultMap type="com.po.Student_getDept" id="getDeptInfo">
+		<result column="dept_id" property="dept_id" />
+		<result column="dept_name" property="dept_name" />
+	</resultMap>
+	
+	
+	<select id="getTestTimeByName" resultMap="getTestInfo"  parameterType="String">
+	SELECT tbl_emp.`emp_name`,tbl_course.`Cname`,tbl_testTime.`testTime`
+	FROM tbl_emp,tbl_course,tbl_testTime,tbl_sc
+	WHERE tbl_emp.`emp_id`=tbl_sc.`emp_id` AND tbl_sc.`Cno`=tbl_course.`Cno` AND
+	tbl_testTime.`Cno`=tbl_course.`Cno`
+	AND tbl_emp.`emp_name`=#{emp_name}
+	</select>
+	<resultMap type="com.po.GetTestTime" id="getTestInfo">
+		<result column="emp_name" property="emp_name" />
+		<result column="Cname" property="Cname" />
+		<result column="testTime" property="testTime" />
+	</resultMap>
+	
+</mapper>
