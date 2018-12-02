@@ -29,7 +29,7 @@ CREATE TABLE `dictory` (
 
 /*Data for the table `dictory` */
 
-insert  into `dictory`(`tableName`,`filedName`,`filedExpression`) values ('tbl_login','type','0:admin;1:gust');
+insert  into `dictory`(`tableName`,`filedName`,`filedExpression`) values ('tbl_login','type','1:admin;0:gust');
 
 /*Table structure for table `tbl_course` */
 
@@ -45,7 +45,7 @@ CREATE TABLE `tbl_course` (
 
 /*Data for the table `tbl_course` */
 
-insert  into `tbl_course`(`Cno`,`Cname`,`Ctime`,`testTime`) values ('1','计算机网络','2018-9-1~2018-12-21','2019-1-12 8:00~12:00');
+insert  into `tbl_course`(`Cno`,`Cname`,`Ctime`,`testTime`) values ('1','计算机网络','2018-9-1~2018-12-21','2019-1-12 8:00~12:00'),('2','jsp','2018-9-1~2018-12-21','2019-1-15 8:00~12:00'),('3','软件质量测','2018-9-1~2018-12-21','2019-1-15 12:00~16:00'),('4','软件项目管理','2018-9-1~2018-12-21','2019-1-15 20:00~22:00'),('5','uml建模','2018-10-12~2018-12-21','2019-1-16 20:00~22:00');
 
 /*Table structure for table `tbl_dept` */
 
@@ -55,11 +55,11 @@ CREATE TABLE `tbl_dept` (
   `dept_id` int(11) NOT NULL AUTO_INCREMENT,
   `dept_name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`dept_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tbl_dept` */
 
-insert  into `tbl_dept`(`dept_id`,`dept_name`) values (1,'计算机与信息工程学院');
+insert  into `tbl_dept`(`dept_id`,`dept_name`) values (1,'计算机与信息工程学院'),(2,'董事会'),(3,'经管'),(4,'旅游'),(5,'法律');
 
 /*Table structure for table `tbl_emp` */
 
@@ -72,11 +72,11 @@ CREATE TABLE `tbl_emp` (
   `eamil` varchar(100) DEFAULT NULL,
   `dept_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tbl_emp` */
 
-insert  into `tbl_emp`(`emp_id`,`emp_name`,`gender`,`eamil`,`dept_id`) values (1,'朱旭','男','123@qq.com',1);
+insert  into `tbl_emp`(`emp_id`,`emp_name`,`gender`,`eamil`,`dept_id`) values (1,'朱旭','男','123@qq.com',1),(2,'admin','男','324495670@qq.com',2);
 
 /*Table structure for table `tbl_login` */
 
@@ -90,11 +90,11 @@ CREATE TABLE `tbl_login` (
   `resetProblem` varchar(300) DEFAULT NULL,
   `resetQuestion` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tbl_login` */
 
-insert  into `tbl_login`(`user_id`,`user_name`,`password`,`type`,`resetProblem`,`resetQuestion`) values (1,'朱旭','202cb962ac59075b964b07152d234b70',0,'123','123');
+insert  into `tbl_login`(`user_id`,`user_name`,`password`,`type`,`resetProblem`,`resetQuestion`) values (1,'朱旭','202cb962ac59075b964b07152d234b70',0,'123','123'),(2,'admin','e10adc3949ba59abbe56e057f20f883e',1,'身份证号','123456');
 
 /*Table structure for table `tbl_sc` */
 
@@ -109,7 +109,7 @@ CREATE TABLE `tbl_sc` (
 
 /*Data for the table `tbl_sc` */
 
-insert  into `tbl_sc`(`Cno`,`Score`,`emp_id`) values ('1',100,1);
+insert  into `tbl_sc`(`Cno`,`Score`,`emp_id`) values ('1',100,1),('2',100,1),('3',100,1),('4',100,1),('5',100,1);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
