@@ -5,7 +5,7 @@
 <!-- 先引入对应的扫描文件 -->
 <mapper namespace="com.mapper.StudentMapper">
 	<select id="getStudentBasicInfoByName" resultMap="getStudentInfoReMap" parameterType="String">
-		select * from emp_course_sc_dept
+		select * from tbl_emp,tbl_course,tbl_dept,tbl_sc
 		where emp_name=#{emp_name}
 	</select>
 	<resultMap type="com.po.Emp" id="getStudentInfoReMap">
@@ -33,10 +33,9 @@
 	
 	
 	<select id="getTestTimeByName" resultMap="getTestInfo"  parameterType="String">
-	SELECT tbl_emp.`emp_name`,tbl_course.`Cname`,tbl_testTime.`testTime`
-	FROM tbl_emp,tbl_course,tbl_testTime,tbl_sc
-	WHERE tbl_emp.`emp_id`=tbl_sc.`emp_id` AND tbl_sc.`Cno`=tbl_course.`Cno` AND
-	tbl_testTime.`Cno`=tbl_course.`Cno`
+	SELECT tbl_emp.`emp_name`,tbl_course.`Cname`,tbl_course.`testTime`
+	FROM tbl_emp,tbl_course,tbl_sc
+	WHERE tbl_emp.`emp_id`=tbl_sc.`emp_id` AND tbl_sc.`Cno`=tbl_course.`Cno` 
 	AND tbl_emp.`emp_name`=#{emp_name}
 	</select>
 	<resultMap type="com.po.GetTestTime" id="getTestInfo">
