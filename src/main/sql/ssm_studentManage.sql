@@ -72,11 +72,11 @@ CREATE TABLE `tbl_emp` (
   `eamil` varchar(100) DEFAULT NULL,
   `dept_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tbl_emp` */
 
-insert  into `tbl_emp`(`emp_id`,`emp_name`,`gender`,`eamil`,`dept_id`) values (1,'朱旭','男','123@qq.com',1),(2,'admin','男','324495670@qq.com',2);
+insert  into `tbl_emp`(`emp_id`,`emp_name`,`gender`,`eamil`,`dept_id`) values (1,'朱旭','男','123@qq.com',1),(2,'admin','男','324495670@qq.com',2),(3,'z1','女','23134654',1),(4,'中','男','23134654',1),(5,'阿斯蒂芬','男','23134654',1),(6,'是大法官','女','23134654',3),(7,'zx','男','ffffffffff@qqaaaaaa',3);
 
 /*Table structure for table `tbl_login` */
 
@@ -90,11 +90,11 @@ CREATE TABLE `tbl_login` (
   `resetProblem` varchar(300) DEFAULT NULL,
   `resetQuestion` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `tbl_login` */
 
-insert  into `tbl_login`(`user_id`,`user_name`,`password`,`type`,`resetProblem`,`resetQuestion`) values (1,'朱旭','202cb962ac59075b964b07152d234b70',0,'123','123'),(2,'admin','e10adc3949ba59abbe56e057f20f883e',1,'身份证号','123456');
+insert  into `tbl_login`(`user_id`,`user_name`,`password`,`type`,`resetProblem`,`resetQuestion`) values (1,'朱旭','202cb962ac59075b964b07152d234b70',0,'123','123'),(2,'admin','e10adc3949ba59abbe56e057f20f883e',1,'身份证号','123456'),(3,'z1','202cb962ac59075b964b07152d234b70',0,'123','123'),(4,'中','202cb962ac59075b964b07152d234b70',0,'123','123'),(5,'阿斯蒂芬','202cb962ac59075b964b07152d234b70',0,'123','123'),(6,'是大法官','202cb962ac59075b964b07152d234b70',0,'123','123');
 
 /*Table structure for table `tbl_sc` */
 
@@ -109,7 +109,7 @@ CREATE TABLE `tbl_sc` (
 
 /*Data for the table `tbl_sc` */
 
-insert  into `tbl_sc`(`Cno`,`Score`,`emp_id`) values ('1',100,1),('2',100,1),('3',100,1),('4',100,1),('5',100,1);
+insert  into `tbl_sc`(`Cno`,`Score`,`emp_id`) values ('1',100,1),('1',80,2),('1',60,3),('1',33,4),('1',90,5),('1',100,6),('2',100,1),('2',80,2),('2',59,3),('2',33,4),('2',30,6),('3',100,1),('3',80,2),('3',55,3),('3',60,6),('4',100,1),('4',80,2),('4',33,4),('5',100,1),('5',0,2),('5',12,5);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
