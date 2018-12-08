@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 先引入对应的扫描文件 -->
+<mapper namespace="com.mapper.LoginMapper">
+	<select id="confirmUser" resultMap="getUsrInfoReMap" parameterType="String">
+		select * from tbl_login
+		where user_name=#{userName}
+	</select>
+	<resultMap type="com.po.Login" id="getUsrInfoReMap">
+		<result column="user_id" property="user_id" />
+		<result column="user_name" property="user_name" />
+		<result column="password" property="password" />
+		<result column="type" property="type" />
+	</resultMap>
+	
+	
+	
+	<!-- 用于更新数据库中的密码 -->
+	<update id="chagePassWord" parameterType="com.po.ChangePassword">
+		UPDATE tbl_login
+		<trim prefix="set" suffixOverrides=",">
+			<if test="password!=null">password=#{password},</if>
+		</trim>
+		WHERE user_name=#{user_name}
+	</update>
+	
+	
+	<insert id="insertUsrByLogin" parameterType="com.po.Login">
+		insert into tbl_login
+		(user_name,password,type,resetProblem,resetQuestion)
+		values(#{user_name},#{password},#{type},#{resetProblem},#{resetQuestion})
+	</insert>
+	
+	
+</mapper>

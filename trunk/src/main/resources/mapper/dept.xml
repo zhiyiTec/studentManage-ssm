@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 先引入对应的扫描文件 -->
+<mapper namespace="com.mapper.DeptMapper">
+	<!-- 查询列表所有内容 -->
+	<select id="getDeptInfo" resultMap="getDeptInfoReMap">
+		select * from tbl_dept
+	</select>
+	<resultMap type="com.po.Dept" id="getDeptInfoReMap">
+		<id column="dept_id" property="dept_id" />
+		<result column="dept_name" property="dept_name" />
+	</resultMap>
+	
+	
+	<insert id="insertByDept" parameterType="com.po.Dept">
+		insert into tbl_dept (dept_name)
+		values(#{dept_name})
+	</insert>
+	
+	
+	<select id="getDeptIdByDeptName" parameterType="String" resultType="Integer">
+		SELECT	dept_id
+		FROM tbl_dept
+		WHERE dept_name=#{DeptName}
+		LIMIT 0,1
+	</select>
+</mapper>
